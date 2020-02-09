@@ -12,7 +12,6 @@ app.secret_key = 'RandomSecretKey'
 yclient_id = os.environ['YELP_CLIENT_ID']
 yapi_key = os.environ['YELP_API_KEY']
 
-
 @app.route('/select')
 def select():
 
