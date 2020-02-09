@@ -1,1 +1,49 @@
-<a href='/select'>Select a restaurant</a>
+<html>
+    
+<header>
+
+<h1 align="center">Lunchwheel</h1>    
+    
+<h3 align="center">Lunchweel is a sophisticated application for selecting among various restaurants using cutting-edge web retrieval and state-of-the-art randomization algorithms.  </h3>
+    
+</header>    
+    
+<p style="text-align: center">Click the wheel for lunch time</p>    
+    
+<br/>
+    
+<a style="align:center" href='/select'>
+<img href='/select' src="lunch.png" class="rotate"><a>
+
+
+<style>
+img.rotate {
+    animation: spin 10s infinite linear paused;
+    -webkit-animation: spin 10s infinite linear paused
+}
+
+img.rotate {
+    animation-play-state: running;
+    -webkit-animation-play-state: running
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg)
+    }
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg)
+    }
+    100% {
+        -webkit-transform: rotate(360deg)
+    }
+}
+</style>
+    
+</html>
