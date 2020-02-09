@@ -13,7 +13,7 @@ yclient_id = os.environ['YELP_CLIENT_ID']
 yapi_key = os.environ['YELP_API_KEY']
 
 
-@app.route('/select')
+@app.route('/lunchwheel/select')
 def select():
 
     # Fetch the data from the yelp API
@@ -30,10 +30,10 @@ def select():
     return render_template('selection.html', selection=selection)
 
 
-@app.route('/')
+@app.route('/lunchwheel')
 def index():
     return render_template('index.html')
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=9191)
