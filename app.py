@@ -27,8 +27,10 @@ def select():
 
     # Display a random selection from the JSON
     data = resp.json()
-
+    rs = [r for r in data['businesses'] if r['is_closed'] is False]
+    
     selections = random.choices(data['businesses'], k=5)
+    print(selections)
 
     return render_template('selection.html', selections=selections)
 

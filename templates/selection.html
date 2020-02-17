@@ -9,8 +9,9 @@
 <div id="div1" style="visibility:hidden; z-index: 1;">
     <h1 style="text-align: center"> Your Selection: {{selections[0]['name']}}</h1>
     <h3 style="text-align: center"> Do not question the wheel</h3>
-    <a style="text-align: center; display:block;" href='/'>Back home again</a>
+    <a style="text-align: center; display:block;" href='/'>Back to lunchwheel</a>
     <h2 style="text-align: center">Address: {{selections[0]['location']['display_address'][0]}} ({{selections[0]['distance']|round|int}}m away)</h2>
+    <h2 style="text-align: center">Rating: {{selections[0]['rating']}}, Price: {{selections[0]['price']}}<h2>
     <img class="center" src="{{selections[0]['image_url']}}">
 </div>
 
