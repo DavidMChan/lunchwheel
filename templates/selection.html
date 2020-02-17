@@ -1,21 +1,194 @@
+<div id="animation" style="z-index: -1; position:relative;">
+    <img class="tortoise" src="{{selections[0]['image_url']}}">
+    <img class="hare" src="{{selections[1]['image_url']}}">
+    <img class="t1" src="{{selections[2]['image_url']}}">
+    <img class="t2" src="{{selections[3]['image_url']}}">
+    <img class="t3" src="{{selections[4]['image_url']}}">
+    <div class="road"></div>
+</div>
+<div id="div1" style="visibility:hidden; z-index: 1;">
+    <h1 style="text-align: center"> Your Selection: {{selections[0]['name']}}</h1>
+    <h3 style="text-align: center"> Do not question the wheel</h3>
+    <a style="text-align: center; display:block;" href='/'>Back home again</a>
+    <h2 style="text-align: center">Address: {{selections[0]['location']['display_address'][0]}} ({{selections[0]['distance']|round|int}}m away)</h2>
+    <img class="center" src="{{selections[0]['image_url']}}">
+</div>
 
-<h1 style="text-align: center"> Your Selection: {{selections[0]['name']}}</h1>
-<h3 style="text-align: center"> Do not question the wheel</h3>
-<a style="text-align: center; display:block;" href='/'>Back home again</a>
-<h2 style="text-align: center">Address: {{selections[0]['location']['display_address'][0]}} ({{selections[0]['distance']|round|int}}m away)</h2>
-
-<img class="center" src="{{selections[0]['image_url']}}">
-
-<!--<h3>Raw JSON:</h3>-->
-<!--{{selection}}-->
-
-
+<script>
+setTimeout(function(){
+document.getElementById('div1').style.visibility = "visible";
+},8000);
+</script>
 
 <style>
+    
 .center {
   display: block;
   margin-left: auto;
   margin-right: auto;
   width: 50%;
+}
+    
+.tortoise,
+.t1,
+.t2,
+.t3,
+.hare {
+    width: 1in;
+    height: 1in;
+}
+    
+/* ANIMATION STUFF */
+.tortoise { 
+	-webkit-animation: go-tortoise 7s 1  1.3s ease-in-out forwards,
+        hare-hop .55s 11 1.3s ease-in-out;
+}
+.t1 { 
+	-webkit-animation: go-t1 7s 1  1.3s ease-in-out forwards,
+                        hare-hop .8s 2 1.3s ease-in-out,
+                       loser 30s;
+}
+.t2 { 
+	-webkit-animation: go-t2 7s 1  1.3s ease-in-out forwards,
+                       hare-hop .4s 11 1.3s ease-in-out,
+                       loser 30s;
+}
+.t3 { 
+	-webkit-animation: go-t3 7s 1  1.3s ease-in-out forwards,
+                        hare-hop .8s 2 1.3s ease-in-out,
+                       loser 30s;
+}
+.hare { 
+   -webkit-animation: go-hare 7s 1  1.3s linear forwards,
+   					  hare-hop .6s 11 1.3s ease-in-out,
+                      loser 30s;
+}
+.road {
+	-webkit-animation: move-road 6s 1  1.3s ease-in-out forwards;
+}
+
+@-webkit-keyframes go-tortoise { 
+    20%, 
+    45%  { left: 23%; }
+    65%  { left: 42%; }
+    80%  { left: 67%; }
+    90%  { left: 70%; }
+    100% { left: 80%; }
+}
+@-webkit-keyframes go-t1 { 
+    20%, 
+    43%  { left: 30%; }
+    58%  { left: 50%; }
+    82%  { left: 67%; }
+    90%  { left: 77%; }
+    100% { left: 78%; }
+}
+@-webkit-keyframes go-t2 { 
+    20%, 
+    40%  { left: 10%; }
+    55%  { left: 23%; }
+    80%  { left: 34%; }
+    92%  { left: 59%; }
+    100% { left: 76%; }
+}
+@-webkit-keyframes go-t3 { 
+    20%, 
+    45%  { left: 20%; }
+    68%  { left: 45%; }
+    80%  { left: 60%; }
+    92%  { left: 70%; }
+    100% { left: 80%; }
+}
+@-webkit-keyframes go-hare {
+	20%  { left: 20%; }
+	40%  { left: 45%; }
+	50%  { left: 66%; }
+	80%  { left: 68%; }
+	100% { left: 78%; }
+}
+@-webkit-keyframes hare-hop {
+	50%  { -webkit-transform: translate3d(0,415px,0); }
+}
+@-webkit-keyframes move-road {
+	100% { background-position: -1599px 50%; }
+}
+@-webkit-keyframes rotate-road {
+	100% { -webkit-transform: rotate3d(1,0,0,35deg); }
+}
+@-webkit-keyframes loser {
+    22% {opacity: 1; }
+	25% { opacity: 0; }
+    100% { opacity: 0;}
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	overflow: hidden;
+	margin:0;
+	padding-top: 15px;
+	text-align: center;
+	font: .75em normal 'Asul', sans-serif;
+	-webkit-perspective: 800;
+}
+.tortoise,
+.t1,
+.t2,
+.t3,
+.hare,
+.road,
+.road:after {
+	position: absolute; 
+}
+.tortoise,
+.t1,
+.t2,
+.t3,
+.hare {
+	left: 2%; 
+	z-index: 3000;
+}
+.tortoise { 
+	-webkit-transform: translate3d(0,190px,0);
+}
+.t1 { 
+	-webkit-transform: translate3d(0,230px,0);
+}
+.t2 { 
+	-webkit-transform: translate3d(0,290px,0);
+}
+.t3 { 
+	-webkit-transform: translate3d(0,370px,0);
+}
+.hare { 
+	-webkit-transform: translate3d(0,460px,0);
+}
+.road {
+	top: -1600px;
+	left: -90px;
+	overflow: hidden; 
+	width: 128%;
+	height: 4000px;
+	border-bottom: 6px solid #9a6e2d;
+    background: url('../static/road.png') repeat-x 0 50%;
+/*	background: https://treehouse-code-samples.s3.amazonaws.com/CSS-DD/codepen/blog/animation-tut/road.png repeat-x 0 50%;*/
+/*    background: url('road.png') repeat-x 0 50%;*/
+}
+.road:after {
+	top: 47px;
+	left: 72%;
+	display: block;
+	padding: 126px 0 0 25px;
+	width: 250px;
+	height: 800px;
+	background: rgba(19,93,158,.5);
+	color: white;
+	content: "Winner!";
+	text-align: left;
+	letter-spacing: 1px;
+	font-size: 2.2em;
+	opacity: 0;
 }
 </style>
