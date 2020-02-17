@@ -9,6 +9,10 @@ import requests
 app = Flask(__name__)
 app.secret_key = 'RandomSecretKey'
 
+#yclient_id = 'WstnsSg6wn0O0nQE3LNWYQ'
+#yapi_key = 'RRa_1MeUAR9XaTDX_qXieecb9_bx4pcQFVguWxxIyfPIZaSbIF2HH0C46vN80kWiCYvFxLaQEd3N4wm3HOIJyKPeeRzeIbzK-LBLvdEP569u-RhTB-jqnQQe9nVEXnYx'
+
+
 yclient_id = os.environ['YELP_CLIENT_ID']
 yapi_key = os.environ['YELP_API_KEY']
 
@@ -35,4 +39,5 @@ def index():
 
 
 if __name__ == '__main__':
+    app.config['TEMPLATES_AUTO_RELOAD'] = True    
     app.run(port=9191)
