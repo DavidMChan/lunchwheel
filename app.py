@@ -9,12 +9,12 @@ import requests
 app = Flask(__name__)
 app.secret_key = 'RandomSecretKey'
 
-#yclient_id = 'WstnsSg6wn0O0nQE3LNWYQ'
-#yapi_key = 'RRa_1MeUAR9XaTDX_qXieecb9_bx4pcQFVguWxxIyfPIZaSbIF2HH0C46vN80kWiCYvFxLaQEd3N4wm3HOIJyKPeeRzeIbzK-LBLvdEP569u-RhTB-jqnQQe9nVEXnYx'
+yclient_id = 'WstnsSg6wn0O0nQE3LNWYQ'
+yapi_key = 'RRa_1MeUAR9XaTDX_qXieecb9_bx4pcQFVguWxxIyfPIZaSbIF2HH0C46vN80kWiCYvFxLaQEd3N4wm3HOIJyKPeeRzeIbzK-LBLvdEP569u-RhTB-jqnQQe9nVEXnYx'
 
 
-yclient_id = os.environ['YELP_CLIENT_ID']
-yapi_key = os.environ['YELP_API_KEY']
+#yclient_id = os.environ['YELP_CLIENT_ID']
+#yapi_key = os.environ['YELP_API_KEY']
 
 @app.route('/select')
 def select():
@@ -28,9 +28,9 @@ def select():
     # Display a random selection from the JSON
     data = resp.json()
 
-    selection = random.choice(data['businesses'])
+    selections = random.choices(data['businesses'], k=5)
 
-    return render_template('selection.html', selection=selection)
+    return render_template('selection.html', selections=selections)
 
 
 @app.route('/')

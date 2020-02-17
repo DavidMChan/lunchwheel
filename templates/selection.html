@@ -1,10 +1,10 @@
 
-<h1 style="text-align: center"> Your Selection: {{selection['name']}}</h1>
+<h1 style="text-align: center"> Your Selection: {{selections[0]['name']}}</h1>
 <h3 style="text-align: center"> Do not question the wheel</h3>
 <a style="text-align: center; display:block;" href='/'>Back home again</a>
-<h2 style="text-align: center">Address: {{selection['location']['display_address'][0]}} ({{selection['distance']|round|int}}m away)</h2>
+<h2 style="text-align: center">Address: {{selections[0]['location']['display_address'][0]}} ({{selections[0]['distance']|round|int}}m away)</h2>
 
-<img class="center" src="{{selection['image_url']}}">
+<img class="center" src="{{selections[0]['image_url']}}">
 
 <!--<h3>Raw JSON:</h3>-->
 <!--{{selection}}-->
