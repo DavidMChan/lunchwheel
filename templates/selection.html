@@ -1,18 +1,18 @@
 <div id="animation" style="z-index: -1; position:relative;">
-    <img class="tortoise" src="{{selections[0]['image_url']}}">
-    <img class="hare" src="{{selections[1]['image_url']}}">
-    <img class="t1" src="{{selections[2]['image_url']}}">
-    <img class="t2" src="{{selections[3]['image_url']}}">
-    <img class="t3" src="{{selections[4]['image_url']}}">
+    <img class="tortoise" src="/photo/{{selections[0]['photos'][0]['photo_reference']}}">
+    <img class="hare" src="/photo/{{selections[1]['photos'][0]['photo_reference']}}">
+    <img class="t1" src="/photo/{{selections[2]['photos'][0]['photo_reference']}}">
+    <img class="t2" src="/photo/{{selections[3]['photos'][0]['photo_reference']}}">
+    <img class="t3" src="/photo/{{selections[4]['photos'][0]['photo_reference']}}">
     <div class="road"></div>
 </div>
 <div id="div1" style="visibility:hidden; z-index: 1;">
     <h1 style="text-align: center"> Your Selection: {{selections[0]['name']}}</h1>
     <h3 style="text-align: center"> Do not question the wheel</h3>
     <a style="text-align: center; display:block;" href='/'>Back to lunchwheel</a>
-    <h2 style="text-align: center">Address: {{selections[0]['location']['display_address'][0]}} ({{selections[0]['distance']|round|int}}m away)</h2>
-    <h2 style="text-align: center">Rating: {{selections[0]['rating']}}, Price: {{selections[0]['price']}}<h2>
-    <img class="center" src="{{selections[0]['image_url']}}">
+    <h2 style="text-align: center">Address: {{selections[0]['vicinity']}}</h2>
+    <h2 style="text-align: center">Rating: {{selections[0]['rating']}}, Price: {{selections[0]['price_level']}}<h2>
+    <img class="center" src="/photo/{{selections[0]['photos'][0]['photo_reference']}}">
 </div>
 
 <script>

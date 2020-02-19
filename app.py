@@ -1,7 +1,8 @@
 import random
 import os
+import time
 
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, make_response
 
 import requests
 
@@ -9,28 +10,46 @@ import requests
 app = Flask(__name__)
 app.secret_key = 'RandomSecretKey'
 
-#yclient_id = 'WstnsSg6wn0O0nQE3LNWYQ'
-#yapi_key = 'RRa_1MeUAR9XaTDX_qXieecb9_bx4pcQFVguWxxIyfPIZaSbIF2HH0C46vN80kWiCYvFxLaQEd3N4wm3HOIJyKPeeRzeIbzK-LBLvdEP569u-RhTB-jqnQQe9nVEXnYx'
+# DOWNLOAD AND CACHE RESULTS FOR BWW
+maps_url = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json'
+google_api_key = os.environ['GOOGLE_API_KEY']
+
+resp = requests.get('{}?location={},{}&type={}&opennow={}&radius={}&rankby=prominence&key={}'.format(
+    maps_url,
+    '37.873287',
+    '-122.268203',
+    'restaurant',
+    'true',
+    '3000',
+    google_api_key,
+)).json()
+
+all_places = resp['results']
+while 'next_page_token' in resp:
+    time.sleep(10)
+    resp = requests.get('{}?pagetoken={}&key={}'.format(
+        maps_url,
+        resp['next_page_token'],
+        google_api_key,
+    )).json()
+    all_places += resp['results']
 
 
-yclient_id = os.environ['YELP_CLIENT_ID']
-yapi_key = os.environ['YELP_API_KEY']
+@app.route('/photo/<id>')
+def photo(id):
+
+    response = make_response(
+        requests.get('https://maps.googleapis.com/maps/api/place/photo?photoreference={}&key={}&maxheight=500'.format(id, google_api_key))._content)
+    response.headers.set('Content-Type', 'image/jpeg')
+    response.headers.set(
+        'Content-Disposition', 'attachment', filename='image.jpg')
+    return response
+
 
 @app.route('/select')
 def select():
-
-    # Fetch the data from the yelp API
-    headers = {'Authorization': 'Bearer {}'.format(yapi_key)}
-    resp = requests.get('https://api.yelp.com/v3/businesses/search?term={}&location={}&limit=50&radius=3000'.format(
-                        'restaurants', '"2121 Berkeley Way, Berkeley, CA 94704"'),
-                        headers=headers)
-
-    # Display a random selection from the JSON
-    data = resp.json()
-    rs = [r for r in data['businesses'] if r['is_closed'] is False]
-    
-    selections = random.sample(data['businesses'], k=5)
-
+    # Pick a set of restaurants from all of the places
+    selections = random.sample(all_places, k=5)
     return render_template('selection.html', selections=selections)
 
 
@@ -40,5 +59,5 @@ def index():
 
 
 if __name__ == '__main__':
-    app.config['TEMPLATES_AUTO_RELOAD'] = True    
+    app.config['TEMPLATES_AUTO_RELOAD'] = True
     app.run(port=9191)
